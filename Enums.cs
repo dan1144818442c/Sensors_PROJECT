@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace Sensors_Project
 {
-    internal class Program
+    internal class Enums
     {
-        static void Main(string[] args)
+        public enum SensorType
         {
-
+            Thermal,
+            Audio,
+            Motion,
+            Cellular,
+            Basic
         }
     }
 }
