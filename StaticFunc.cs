@@ -70,7 +70,13 @@ namespace Sensors_Project
             }
 
         }
-
+        public static SensorType get_random_secret_sensor(Dictionary<SensorType, List<Sensor>> sensorsDict)
+        {
+            Random random = new Random();
+            SensorType[] sensorTypes = sensorsDict.Keys.ToArray();
+            int index = random.Next(sensorTypes.Length);
+            return sensorTypes[index];
+        }
 
         //public static get_goog_type()
     }

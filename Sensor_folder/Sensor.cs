@@ -34,7 +34,7 @@ namespace Sensors_Project
             else if (activeSeshens == 0)
             {
                 IsActive = false;
-                Console.WriteLine("\"Cannot activate sensor, no active sessions left.\"");
+                Console.WriteLine($"\"Cannot activate sensor, no active sessions left to sensor {{this.ToString()}}.\"");
                 //throw new InvalidOperationException("Cannot activate sensor, no active sessions left.");
             }
            

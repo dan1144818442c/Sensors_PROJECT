@@ -96,7 +96,12 @@ namespace Sensors_Project
             {
                 foreach (var sensor in kvp.Value)
                 {
+
                     sensor.Activate();
+                    if ((sensor.IsActive) &&(sensor is Sensor_folder.Thermal_Sensor))
+                    {
+                        Console.WriteLine($"one from the secert sensor for {this.Name} is {StaticFunc.get_random_secret_sensor(this.secretSensorProfile).ToString()} ");
+                    }
                 }
             }
             return CountMatchingSensors(); 

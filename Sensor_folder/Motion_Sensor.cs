@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sensors_Project
+namespace Sensors_Project.Sensor_folder
 {
-    internal class Pulse_Sensor : Sensor
+    internal class Motion_Sensor:Sensor
     {
-        
-        public Pulse_Sensor(string name, string target, bool isActive = false ) : base(name, target, isActive)
+
+        public Motion_Sensor(string name, string target, bool isActive = false) : base(name, target, isActive)
         {
             this.activeSeshens = 3;
         }
 
-        public Pulse_Sensor()
+        public Motion_Sensor()
         { this.activeSeshens = 3; }
-
-
-
     }
 }
