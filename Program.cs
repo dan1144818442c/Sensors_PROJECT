@@ -18,12 +18,13 @@ InvestigationManager investigationManager1 = new InvestigationManager();
             i1.AddSecretSensorProfile("Audio");
             i1.AddSecretSensorProfile("Audio");
             i1.AddSecretSensorProfile("Audio");
+            i1.AddSecretSensorProfile("Pulse_Sensor");
             investigationManager1.add_agent(i3);
             investigationManager1.add_agent(i2);
             investigationManager1.add_agent(i4);
             investigationManager1.add_agent(i1);
             //investigationManager1.menu_game();
-            investigationManager1.main_menu();
+            //investigationManager1.main_menu();
 
         }
     }

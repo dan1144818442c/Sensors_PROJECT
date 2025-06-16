@@ -14,9 +14,12 @@ namespace Sensors_Project
         {
             do
             {
-                if (Enum.TryParse(input, true, out SensorType type))
+                if (!int.TryParse(input, out _))
                 {
-                    return type;
+                    if (Enum.TryParse(input, true, out SensorType type))
+                    {
+                        return type;
+                    }
                 }
                 Console.WriteLine("must enter one rom this:");
                 show_enum_sensors();
@@ -67,6 +70,9 @@ namespace Sensors_Project
             }
 
         }
+
+
+        //public static get_goog_type()
     }
 }
 

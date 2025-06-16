@@ -13,13 +13,17 @@ namespace Sensors_Project
 
         public static Sensor CreateSensor(SensorType type, string target = "Unknown", bool isActive = false)
         {
+
             switch (type)
             {
                 //case SensorType.Thermal:
                 //    return new Thermal_Sensor("Thermal", target, isActive);
                 case SensorType.Audio:
                     return new Audio_Sensor("Audio", target, isActive);
-                
+                case SensorType.Pulse_Sensor:
+                    return new Pulse_Sensor("Pulse Sensor", target, isActive);
+                //case SensorType.Cellular:
+                //    return new Cellular_Sensor("Cellular", target, isActive);
                 default:
                     throw new ArgumentException("Unknown sensor type");
             }

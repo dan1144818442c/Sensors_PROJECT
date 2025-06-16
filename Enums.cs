@@ -14,7 +14,8 @@ namespace Sensors_Project
             Audio,
             Motion,
             Cellular,
-            Basic
+            Basic,
+            Pulse_Sensor
         }
     }
 }

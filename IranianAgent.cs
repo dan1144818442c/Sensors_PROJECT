@@ -44,6 +44,7 @@ namespace Sensors_Project
         public void AddAttachedSensor(string sensorName)
         {
             SensorType sensorType = StaticFunc.ChangeStringToSensorType(sensorName);
+            Console.WriteLine(sensorType.ToString());
 
             if (!attachedSensors.ContainsKey(sensorType))
             {
