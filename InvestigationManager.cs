@@ -12,38 +12,92 @@ namespace Sensors_Project
 
         void menu_meneger()
         {
+            Console.WriteLine("chooz one from this:");
             Console.WriteLine("1. Add Iranian Agent");
+            Console.WriteLine("2 . start a game");
             Console.WriteLine("5. Exit");
         }
 
         IranianAgent get_IranianAgent_from_user()
         {
-            Console.WriteLine("2. Show All Iranian Agents");
-            StaticFunc.show_list_of_agents(iranianAgents);
-            Console.WriteLine("chooz num");
-            string input = Console.ReadLine();
-            if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents.Count)
+            do
             {
-                return iranianAgents[index - 1];
-            }
-            else
-            {
+                Console.WriteLine("Show All Iranian Agents");
+                StaticFunc.show_list_of_agents(iranianAgents);
+                Console.WriteLine("chooz num");
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents.Count)
+                {
+                    return iranianAgents[index - 1];
+                }
                 Console.WriteLine("Invalid selection. Please try again.");
-                return null;
             }
+
+            while (true);
+
 
 
         }
 
-        void menu_game()
+        public void menu_game()
         {
             while (true)
             {
-                get_IranianAgent_from_user();
+                IranianAgent agent = get_IranianAgent_from_user();
+                StaticFunc.show_enum_sensors();
+                string input = Console.ReadLine();
+                StaticFunc.check_and_show_matching_sensors(agent, input);
+                if (agent.IsExposed)
+                {
+                    Console.WriteLine("Agent is exposed!");
+                }
+
+                else
+                {
+                    Console.WriteLine("Agent is not exposed.");
+                }
             }
 
 
         }
-        
+
+        public void add_agent(IranianAgent agent)
+        {
+            iranianAgents.Add(agent);
+        }
+
+
+        public void main_menu()
+        {
+            while (true)
+            {
+                menu_meneger();
+                string chois = Console.ReadLine();
+                switch (chois)
+                {
+                    case "1":
+                        Console.WriteLine("Enter Agent Name:");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Enter Agent Age:");
+                        int age = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter Agent Rank:");
+                        string rank = Console.ReadLine();
+                        IranianAgent agent = new IranianAgent(name, age, rank);
+                        add_agent(agent);
+                        break;
+
+                    case "2":
+                        menu_game();
+                        break;
+                    case "5":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
     }
 }

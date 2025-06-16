@@ -10,7 +10,7 @@ namespace Sensors_Project
     {
 
 
-
+        public bool IsExposed { get; set; } = false; 
         public string rank { get; set; }
 
         private Dictionary<SensorType, List<Sensor>> secretSensorProfile = new Dictionary<SensorType, List<Sensor>>();
@@ -41,7 +41,7 @@ namespace Sensors_Project
             secretSensorProfile[sensorType].Add(sensor);
         }
 
-        public void AddAttachedSensor(string sensorName, int sensorValue)
+        public void AddAttachedSensor(string sensorName)
         {
             SensorType sensorType = StaticFunc.ChangeStringToSensorType(sensorName);
 
@@ -51,6 +51,10 @@ namespace Sensors_Project
             }
             Sensor sensor = SensorFactory.CreateSensor(sensorType, target: "Unknown", isActive: true);
             attachedSensors[sensorType].Add(sensor);
+           if (this.CountMatchingSensors() == this.getCountOfSecretSensors())
+            {
+                IsExposed = true;
+            }
         }
 
         public Dictionary<SensorType, List<Sensor>> GetSecretSensorProfile()
@@ -77,7 +81,6 @@ namespace Sensors_Project
                   
                     int activeAttachedCount = attachedList.Count(s => s.IsActive);
 
-                  
                     int secretCount = secretList.Count;
 
                     count += Math.Min(activeAttachedCount, secretCount);
@@ -96,6 +99,16 @@ namespace Sensors_Project
                 }
             }
             return CountMatchingSensors(); 
+        }
+
+        public int getCountOfSecretSensors()
+        {
+            int count = 0;
+            foreach (var kvp in secretSensorProfile)
+            {
+                count += kvp.Value.Count;
+            }
+            return count;
         }
 
 

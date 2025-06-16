@@ -18,7 +18,8 @@ namespace Sensors_Project
 
         public Person() { }
 
-        public 
+       
 
     }
 }
+

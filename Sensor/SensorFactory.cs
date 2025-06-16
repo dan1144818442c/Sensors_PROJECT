@@ -19,10 +19,7 @@ namespace Sensors_Project
                 //    return new Thermal_Sensor("Thermal", target, isActive);
                 case SensorType.Audio:
                     return new Audio_Sensor("Audio", target, isActive);
-                //case SensorType.Motion:
-                //    return new Motion_Sensor("Motion", target, isActive);
-                //case SensorType.Cellular:
-                //    return new Cellular_Sensor("Cellular", target, isActive);
+                
                 default:
                     throw new ArgumentException("Unknown sensor type");
             }

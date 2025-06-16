@@ -12,33 +12,61 @@ namespace Sensors_Project
 
         public static SensorType ChangeStringToSensorType(string input)
         {
-            if (Enum.TryParse(input, true, out SensorType type))
+            do
             {
-                return type;
+                if (Enum.TryParse(input, true, out SensorType type))
+                {
+                    return type;
+                }
+                Console.WriteLine("must enter one rom this:");
+                show_enum_sensors();
+                input = Console.ReadLine();
+
             }
-            else
-            {
-                Console.WriteLine("Invalid sensor type entered. Defaulting to Thermal.");
-                return SensorType.Basic; // או אפשרות אחרת שתבחר
-            }
+            while (true);
         }
 
-        public static void show_list_of_agents(List<IranianAgent> agents)
+        public static string show_list_of_agents(List<IranianAgent> agents)
         {
             if (agents.Count == 0)
             {
                 Console.WriteLine("No agents available.");
-                return;
+                return ("No agents available.");
             }
             Console.WriteLine("List of Agents:");
             int index = 1;
             foreach (IranianAgent agent in agents)
             {
 
-                Console.WriteLine( index + " :" + agent.ToString());
+                Console.WriteLine(index + " :" + agent.ToString());
+                index++;
             }
+            return ($"{index}");
         }
 
+
+
+        public static void check_and_show_matching_sensors(IranianAgent agent, string type)
+        {
+            agent.AddAttachedSensor(type);
+            int num_of_meching = agent.ActivateAllAttachedSensors();
+            int num_of_secret = agent.getCountOfSecretSensors();
+            show_matching_sensors(num_of_meching, num_of_secret);
+        }
+
+        public static void show_matching_sensors(int maching , int all_secret)
+        {
+            Console.WriteLine($"{maching} / {all_secret} of mached");           
+        }
+
+        public static void show_enum_sensors()
+        {
+            foreach(SensorType type in Enum.GetValues(typeof(SensorType)))
+            {
+                Console.WriteLine(type);
+            }
+
+        }
     }
 }
 
