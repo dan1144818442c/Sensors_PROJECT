@@ -10,7 +10,7 @@ namespace Sensors_Project
     {
 
 
-        public bool IsExposed { get; set; } = false; 
+        public bool IsExposed { get; set; } = false;
         public string rank { get; set; }
 
         private Dictionary<SensorType, List<Sensor>> secretSensorProfile = new Dictionary<SensorType, List<Sensor>>();
@@ -52,7 +52,7 @@ namespace Sensors_Project
             }
             Sensor sensor = SensorFactory.CreateSensor(sensorType, target: "Unknown", isActive: true);
             attachedSensors[sensorType].Add(sensor);
-           if (this.CountMatchingSensors() == this.getCountOfSecretSensors())
+            if (this.CountMatchingSensors() == this.getCountOfSecretSensors())
             {
                 IsExposed = true;
             }
@@ -72,14 +72,14 @@ namespace Sensors_Project
             int count = 0;
             foreach (var sensor in attachedSensors)
             {
-                var sensorType = sensor.Key;          
-                var attachedList = sensor.Value;      
+                var sensorType = sensor.Key;
+                var attachedList = sensor.Value;
 
                 if (secretSensorProfile.ContainsKey(sensorType))
                 {
-                    var secretList = secretSensorProfile[sensorType];  
+                    var secretList = secretSensorProfile[sensorType];
 
-                  
+
                     int activeAttachedCount = attachedList.Count(s => s.IsActive);
 
                     int secretCount = secretList.Count;
@@ -98,13 +98,13 @@ namespace Sensors_Project
                 {
 
                     sensor.Activate();
-                    if ((sensor.IsActive) &&(sensor is Sensor_folder.Thermal_Sensor))
+                    if ((sensor.IsActive) && (sensor is Sensor_folder.Thermal_Sensor))
                     {
                         Console.WriteLine($"one from the secert sensor for {this.Name} is {StaticFunc.get_random_secret_sensor(this.secretSensorProfile).ToString()} ");
                     }
                 }
             }
-            return CountMatchingSensors(); 
+            return CountMatchingSensors();
         }
 
         public int getCountOfSecretSensors()
