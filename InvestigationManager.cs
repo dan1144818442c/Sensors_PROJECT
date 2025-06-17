@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sensors_Project.Agent;
 
 namespace Sensors_Project
 {
     internal class InvestigationManager
     {
-        private List<IranianAgent> iranianAgents = new List<IranianAgent>();
+        private Dictionary<string, List<IranianAgent>> iranianAgents;
+
+        public InvestigationManager()
+        {
+            iranianAgents = new Dictionary<string, List<IranianAgent>>
+                {
+                    { "simple", new List<IranianAgent>() } ,
+                {"Upgraded" , new List<IranianAgent>() }
+                };
+        }
 
         void menu_meneger()
         {
             Console.WriteLine("chooz one from this:");
-            Console.WriteLine("1. Add Iranian Agent");
+            Console.WriteLine("1. Add  simple Iranian Agent");
             Console.WriteLine("2 . start a game");
             Console.WriteLine("5. Exit");
         }
@@ -23,49 +33,50 @@ namespace Sensors_Project
             do
             {
                 Console.WriteLine("Show All Iranian Agents");
-                StaticFunc.show_list_of_agents(iranianAgents);
+                StaticFunc.show_list_of_agents(iranianAgents["simple"]);
                 Console.WriteLine("chooz num");
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents.Count)
+                if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents["simple"].Count)
                 {
-                    return iranianAgents[index - 1];
+                    return iranianAgents["simple"][index - 1];
                 }
                 Console.WriteLine("Invalid selection. Please try again.");
             }
-
             while (true);
-
-
-
         }
 
         public void menu_game()
         {
             while (true)
             {
-                IranianAgent agent = get_IranianAgent_from_user();
-                StaticFunc.show_enum_sensors();
-                string input = Console.ReadLine();
-                StaticFunc.check_and_show_matching_sensors(agent, input);
-                if (agent.IsExposed)
+         
+                if (!check_if_can__level2())
                 {
-                    Console.WriteLine("Agent is exposed!");
+                    IranianAgent agent = get_IranianAgent_from_user();
+                    StaticFunc.show_enum_sensors();
+                    string input = Console.ReadLine();
+                    StaticFunc.check_and_show_matching_sensors(agent, input);
+                    if (agent.IsExposed)
+                    {
+                        Console.WriteLine("Agent is exposed!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Agent is not exposed.");
+                    }
                 }
-
                 else
                 {
-                    Console.WriteLine("Agent is not exposed.");
+                    Console.WriteLine("All agents are exposed. You can proceed to level 2.");
+                    break;
                 }
             }
-
-
         }
 
-        public void add_agent(IranianAgent agent)
+        public void add_Simple_agent(IranianAgent agent)
         {
-            iranianAgents.Add(agent);
+            iranianAgents["simple"].Add(agent);
         }
-
 
         public void main_menu()
         {
@@ -83,7 +94,7 @@ namespace Sensors_Project
                         Console.WriteLine("Enter Agent Rank:");
                         string rank = Console.ReadLine();
                         IranianAgent agent = new IranianAgent(name, age, rank);
-                        add_agent(agent);
+                        add_Simple_agent(agent);
                         break;
 
                     case "2":
@@ -99,5 +110,21 @@ namespace Sensors_Project
             }
         }
 
+
+        public bool check_if_can__level2()
+        {
+            foreach (IranianAgent agent in iranianAgents["simple"])
+            {
+                Console.WriteLine(agent.ToString());
+                Console.WriteLine(agent.IsExposed.ToString());
+                StaticFunc.is_exposed_update(agent);
+                if (!agent.IsExposed)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
     }
 }

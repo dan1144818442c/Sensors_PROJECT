@@ -16,14 +16,16 @@ InvestigationManager investigationManager1 = new InvestigationManager();
             IranianAgent i2 = new IranianAgent();
             IranianAgent i3 = new IranianAgent();
             i1.AddSecretSensorProfile("Audio");
-            i1.AddSecretSensorProfile("Audio");
-            i1.AddSecretSensorProfile("Audio");
-            i1.AddSecretSensorProfile("Pulse_Sensor");
-            i1.AddSecretSensorProfile("Thermal");
-            investigationManager1.add_agent(i3);
-            investigationManager1.add_agent(i2);
-            investigationManager1.add_agent(i4);
-            investigationManager1.add_agent(i1);
+            //StaticFunc.is_exposed_update(i1);
+            //i1.AddSecretSensorProfile("Audio");
+            //i1.AddSecretSensorProfile("Audio");
+            //i1.AddSecretSensorProfile("Pulse_Sensor");
+            //i1.AddSecretSensorProfile("Thermal");
+            investigationManager1.add_Simple_agent(i3);
+            investigationManager1.add_Simple_agent(i2);
+            investigationManager1.add_Simple_agent(i4);
+            investigationManager1.add_Simple_agent(i1);
+       
             //investigationManager1.menu_game();
             investigationManager1.main_menu();
 

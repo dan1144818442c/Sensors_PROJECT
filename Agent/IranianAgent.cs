@@ -10,7 +10,7 @@ namespace Sensors_Project
     {
 
 
-        public bool IsExposed { get; set; } = false;
+        public bool IsExposed { get; set; }
         public string rank { get; set; }
 
         private Dictionary<SensorType, List<Sensor>> secretSensorProfile = new Dictionary<SensorType, List<Sensor>>();
@@ -18,19 +18,25 @@ namespace Sensors_Project
         public IranianAgent(string name, int age, string rank) : base(name, age)
         {
             this.rank = rank;
+            this.IsExposed = true;
+          
+            StaticFunc.is_exposed_update(this);
+            
         }
 
-        public IranianAgent() { }
+        public IranianAgent()
+        {
+            StaticFunc.is_exposed_update(this); 
+           
+        }
 
         public override string ToString()
         {
             return $"Name: {Name}, Age: {Age}, Rank: {rank}";
         }
 
-        public void AddSecretSensorProfile(string sensorName)
+        public void AddSecretSensorProfile(SensorType sensorType)
         {
-            SensorType sensorType = StaticFunc.ChangeStringToSensorType(sensorName);
-
             if (!secretSensorProfile.ContainsKey(sensorType))
             {
                 secretSensorProfile[sensorType] = new List<Sensor>();
@@ -39,6 +45,16 @@ namespace Sensors_Project
             }
             Sensor sensor = SensorFactory.CreateSensor(sensorType);
             secretSensorProfile[sensorType].Add(sensor);
+            StaticFunc.is_exposed_update(this);
+
+        }
+
+        public void AddSecretSensorProfile(string sensorName)
+        {
+            SensorType sensorType = StaticFunc.ChangeStringToSensorType(sensorName);
+            AddSecretSensorProfile(sensorType);
+            StaticFunc.is_exposed_update(this);
+
         }
 
         public void AddAttachedSensor(string sensorName)
@@ -52,10 +68,7 @@ namespace Sensors_Project
             }
             Sensor sensor = SensorFactory.CreateSensor(sensorType, target: "Unknown", isActive: true);
             attachedSensors[sensorType].Add(sensor);
-            if (this.CountMatchingSensors() == this.getCountOfSecretSensors())
-            {
-                IsExposed = true;
-            }
+            StaticFunc.is_exposed_update(this);
         }
 
         public Dictionary<SensorType, List<Sensor>> GetSecretSensorProfile()
@@ -90,7 +103,7 @@ namespace Sensors_Project
             return count;
 
         }
-        public int ActivateAllAttachedSensors()
+        public virtual int ActivateAllAttachedSensors()
         {
             foreach (var kvp in attachedSensors)
             {
@@ -100,7 +113,7 @@ namespace Sensors_Project
                     sensor.Activate();
                     if ((sensor.IsActive) && (sensor is Sensor_folder.Thermal_Sensor))
                     {
-                        Console.WriteLine($"one from the secert sensor for {this.Name} is {StaticFunc.get_random_secret_sensor(this.secretSensorProfile).ToString()} ");
+                        Console.WriteLine($"one from the secert sensor for {this.Name} is {StaticFunc.get_random_sensor_type_from_Dict_sensor(this.secretSensorProfile).ToString()} ");
                     }
                 }
             }
