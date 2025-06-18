@@ -28,17 +28,17 @@ namespace Sensors_Project
             Console.WriteLine("5. Exit");
         }
 
-        IranianAgent get_IranianAgent_from_user()
+        IranianAgent get_IranianAgent_from_user(string type_level)
         {
             do
             {
                 Console.WriteLine("Show All Iranian Agents");
-                StaticFunc.show_list_of_agents(iranianAgents["simple"]);
+                StaticFunc.show_list_of_agents(iranianAgents[type_level]);
                 Console.WriteLine("chooz num");
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents["simple"].Count)
+                if (int.TryParse(input, out int index) && index > 0 && index <= iranianAgents[type_level].Count)
                 {
-                    return iranianAgents["simple"][index - 1];
+                    return iranianAgents[type_level][index - 1];
                 }
                 Console.WriteLine("Invalid selection. Please try again.");
             }
@@ -49,27 +49,18 @@ namespace Sensors_Project
         {
             while (true)
             {
-         
+
                 if (!check_if_can__level2())
                 {
-                    IranianAgent agent = get_IranianAgent_from_user();
-                    StaticFunc.show_enum_sensors();
-                    string input = Console.ReadLine();
-                    StaticFunc.check_and_show_matching_sensors(agent, input);
-                    if (agent.IsExposed)
-                    {
-                        Console.WriteLine("Agent is exposed!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Agent is not exposed.");
-                    }
+                    main_level_1();  
                 }
                 else
                 {
                     Console.WriteLine("All agents are exposed. You can proceed to level 2.");
+                    main_level_2();
                     break;
                 }
+
             }
         }
 
@@ -122,9 +113,39 @@ namespace Sensors_Project
                 {
                     return false;
                 }
-
             }
             return true;
+        }
+        public void main_level_1()
+        {
+            IranianAgent agent = get_IranianAgent_from_user("simple");
+            StaticFunc.show_enum_sensors();
+            string input = Console.ReadLine();
+            StaticFunc.check_and_show_matching_sensors(agent, input);
+            if (agent.IsExposed)
+            {
+                Console.WriteLine("Agent is exposed!");
+            }
+            else
+            {
+                Console.WriteLine("Agent is not exposed.");
+            }
+        }
+        public void main_level_2()
+        {
+            IranianAgent agent = get_IranianAgent_from_user("Upgraded");
+            StaticFunc.show_enum_sensors();
+            string input = Console.ReadLine();
+            StaticFunc.check_and_show_matching_sensors(agent, input);
+            if (agent.IsExposed)
+            {
+                Console.WriteLine("Agent is exposed!");
+            }
+            else
+            {
+                Console.WriteLine("Agent is not exposed.");
+            }
+
         }
     }
 }
