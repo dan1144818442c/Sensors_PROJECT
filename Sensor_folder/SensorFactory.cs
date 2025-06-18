@@ -10,12 +10,14 @@ namespace Sensors_Project
 {
     internal class SensorFactory
     {
-        
+
 
         public static Sensor CreateSensor(SensorType type, string target = "Unknown", bool isActive = false)
         {
-
+            {
+                try { 
             switch (type)
+            
             {
                 case SensorType.Thermal:
                     return new Thermal_Sensor("Thermal", target, isActive);
@@ -26,11 +28,19 @@ namespace Sensors_Project
                 //case SensorType.Cellular:
                 //    return new Cellular_Sensor("Cellular", target, isActive);
                 default:
+
                     throw new ArgumentException("Unknown sensor type");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating sensor: {ex.Message}");
+                return null;
             }
         }
-
-
-
     }
+
+
+
+}
 }

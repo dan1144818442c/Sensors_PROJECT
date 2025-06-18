@@ -146,6 +146,50 @@ namespace Sensors_Project
                 agent.IsExposed = false;
             }
         }
+
+        public static void show_dict_list(Dictionary<SensorType, List<Sensor>> sensorsDict)
+        {
+            if (sensorsDict.Count == 0)
+            {
+                Console.WriteLine("No sensors available.");
+                return;
+            }
+            Console.WriteLine("Sensors Dictionary:");
+            foreach (var kvp in sensorsDict)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value.Count} sensors");
+                foreach (var sensor in kvp.Value)
+                {
+                    Console.WriteLine($"  - {sensor}");
+                }
+            }
+        }
+        public static void PrintAgentsBeautifully(List<IranianAgent> agents)
+        {
+            Console.WriteLine("======= List of Iranian Agents =======");
+            Console.WriteLine($"{"#",-3}| {"Name",-12}| {"Age",-4}| {"Rank",-10}| Status");
+            Console.WriteLine("---+-------------+-----+-----------+---------");
+
+            for (int i = 0; i < agents.Count; i++)
+            {
+                IranianAgent agent = agents[i];
+
+                string name = string.IsNullOrWhiteSpace(agent.Name) ? "<no name>" : agent.Name;
+                string rank = string.IsNullOrWhiteSpace(agent.rank) ? "<no rank>" : agent.rank;
+                string status = agent.IsExposed ? "[EXPOSED]" : "[NOT EXPOSED]";
+
+                if (agent.IsExposed)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                else
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                Console.WriteLine($"{(i + 1),-3}| {name,-12}| {agent.Age,-4}| {rank,-10}| {status}");
+
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("======================================");
+        }
     }
 }
 
