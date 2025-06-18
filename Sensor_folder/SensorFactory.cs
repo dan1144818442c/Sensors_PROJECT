@@ -10,37 +10,38 @@ namespace Sensors_Project
 {
     internal class SensorFactory
     {
-
-
         public static Sensor CreateSensor(SensorType type, string target = "Unknown", bool isActive = false)
         {
             {
-                try { 
-            switch (type)
-            
-            {
-                case SensorType.Thermal:
-                    return new Thermal_Sensor("Thermal", target, isActive);
-                case SensorType.Audio:
-                    return new Audio_Sensor("Audio", target, isActive);
-                case SensorType.Pulse_Sensor:
-                    return new Pulse_Sensor("Pulse Sensor", target, isActive);
-                //case SensorType.Cellular:
-                //    return new Cellular_Sensor("Cellular", target, isActive);
-                default:
+                try
+                {
+                    switch (type)
 
-                    throw new ArgumentException("Unknown sensor type");
+                    {
+                        case SensorType.Thermal:
+                            return new Thermal_Sensor("Thermal", target, isActive);
+                        case SensorType.Audio:
+                            return new Audio_Sensor("Audio", target, isActive);
+                        case SensorType.Pulse_Sensor:
+                            return new Pulse_Sensor("Pulse Sensor", target, isActive);
+                        case SensorType.Motion:
+                            return new Motion_Sensor("Cellular", target, isActive);
+                        case SensorType.Signal_Sensor:
+                            return new Signal_Sensor("signal sensor", target, isActive);
+                        default:
+
+                            throw new ArgumentException("Unknown sensor type");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error creating sensor: {ex.Message}");
+                    return null;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error creating sensor: {ex.Message}");
-                return null;
-            }
         }
+
+
+
     }
-
-
-
-}
 }

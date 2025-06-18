@@ -24,7 +24,7 @@ namespace Sensors_Project
         {
             return $"Sensor Name: {Name}, Target: {target}, Is Active: {IsActive}";
         }
-        public void Activate()
+        public virtual void Activate(IranianAgent iranianAgent)
         {
             if ((activeSeshens > 0) || (activeSeshens < 0))
             {

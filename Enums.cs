@@ -13,9 +13,9 @@ namespace Sensors_Project
             Thermal,
             Audio,
             Motion,
-            Cellular,
             Basic,
-            Pulse_Sensor
+            Pulse_Sensor,
+            Signal_Sensor,
         }
     }
 }

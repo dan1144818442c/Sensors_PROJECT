@@ -10,11 +10,11 @@ namespace Sensors_Project.Sensor_folder
     {
         public Thermal_Sensor(string name, string target, bool isActive = false) : base(name, target, isActive)
         {
-            this.activeSeshens = 1;
+            this.activeSeshens = -1;
         }
         public Thermal_Sensor()
         {
-            this.activeSeshens = 1;
+            this.activeSeshens = -1;
         }
 
         public override string ToString()

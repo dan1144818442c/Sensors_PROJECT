@@ -19,7 +19,7 @@ InvestigationManager investigationManager1 = new InvestigationManager();
             Squad_Leader squad_Leader = new Squad_Leader("Ali", 30, "Captain");
             i1.AddSecretSensorProfile("Audio");
             //StaticFunc.is_exposed_update(i1);
-            //i1.AddSecretSensorProfile("Audio");
+            i1.AddSecretSensorProfile("Pulse_Sensor");
             //i1.AddSecretSensorProfile("Audio");
             //i1.AddSecretSensorProfile("Pulse_Sensor");
             //i1.AddSecretSensorProfile("Thermal");
